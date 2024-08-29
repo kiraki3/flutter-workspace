@@ -1,10 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:webtoon_app/services/api_service.dart';
+import '../models/webtoon_model.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
   @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  List<WebtoonModel> webtoons = [];
+  bool isLoading = true;
+
+  void waitForWebtoons() async {
+    webtoons = await ApiService().getTodaysToons(); // again
+    isLoading = false;
+    setState(() {});
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    waitForWebtoons();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    print(webtoons);
+    print(isLoading);
     return Scaffold(
       appBar: AppBar(
         elevation: 1,
