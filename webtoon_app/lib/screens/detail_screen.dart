@@ -41,73 +41,115 @@ class _DetailScreenState extends State<DetailScreen> {
             ),
           ),
         ),
-        body: Column(
-          children: [
-            const SizedBox(
-              height: 20,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+        body: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 100, vertical: 20),
+            child: Column(
               children: [
-                Hero(
-                  tag: widget.id,
-                  child: Container(
-                    width: 220,
-                    clipBehavior: Clip.hardEdge,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15),
-                        boxShadow: const [
-                          BoxShadow(
-                            blurRadius: 5,
-                            offset: Offset(10, 10),
-                            color: Colors.black26,
-                          )
-                        ]),
-                    child: Image.network(
-                      widget.thumb,
-                      headers: const {
-                        'User-Agent':
-                            'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36',
-                        'Referer': 'https://comic.naver.com',
-                      },
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Hero(
+                      tag: widget.id,
+                      child: Container(
+                        width: 200,
+                        clipBehavior: Clip.hardEdge,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15),
+                            boxShadow: const [
+                              BoxShadow(
+                                blurRadius: 5,
+                                offset: Offset(10, 10),
+                                color: Colors.black26,
+                              )
+                            ]),
+                        child: Image.network(
+                          widget.thumb,
+                          headers: const {
+                            'User-Agent':
+                                'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36',
+                            'Referer': 'https://comic.naver.com',
+                          },
+                        ),
+                      ),
                     ),
-                  ),
+                  ],
+                ),
+                const SizedBox(
+                  height: 25,
+                ),
+                FutureBuilder(
+                  future: webtoon,
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      return Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            '${snapshot.data!.genre} / ${snapshot.data!.age}',
+                            style: const TextStyle(fontSize: 13),
+                          ),
+                          const SizedBox(
+                            height: 15,
+                          ),
+                          Text(
+                            snapshot.data!.about,
+                            style: const TextStyle(fontSize: 13),
+                          ),
+                        ],
+                      );
+                    }
+                    return const Text("....");
+                  },
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                FutureBuilder(
+                  future: episodes,
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      return Column(
+                        children: [
+                          for (var episode in snapshot.data!.length > 10
+                              ? snapshot.data!.sublist(0, 10)
+                              : snapshot.data!)
+                            Container(
+                              margin: const EdgeInsets.symmetric(vertical: 8),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(50),
+                                color: Colors.green.shade400,
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    vertical: 5, horizontal: 10),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      episode.title,
+                                      style: const TextStyle(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.w500),
+                                    ),
+                                    const Icon(
+                                      Icons.chevron_right_rounded,
+                                      color: Colors.white,
+                                    )
+                                  ],
+                                ),
+                              ),
+                            ),
+                        ],
+                      );
+                    }
+                    return Container();
+                  },
                 ),
               ],
             ),
-            const SizedBox(
-              height: 25,
-            ),
-            FutureBuilder(
-              future: webtoon,
-              builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 100,
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          '${snapshot.data!.genre} / ${snapshot.data!.age}',
-                          style: const TextStyle(fontSize: 13),
-                        ),
-                        const SizedBox(
-                          height: 15,
-                        ),
-                        Text(
-                          snapshot.data!.about,
-                          style: const TextStyle(fontSize: 13),
-                        ),
-                      ],
-                    ),
-                  );
-                }
-                return const Text("....");
-              },
-            )
-          ],
+          ),
         ));
   }
 }
