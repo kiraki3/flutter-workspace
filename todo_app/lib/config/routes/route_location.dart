@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-
 class RouteLocation {
   const RouteLocation._();
 
