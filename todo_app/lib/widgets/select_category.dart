@@ -10,42 +10,44 @@ class SelectCategory extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final List<TaskCategories> categories = TaskCategories.values.toList();
     final selectedCategory = ref.watch(categoryProvider);
-    final categories = TaskCategories.values.toList();
+
     return SizedBox(
       height: 50,
       child: Row(
         children: [
-          Text(
-            'Category',
-            style: context.textTheme.titleLarge,
-          ),
+          Text("Category", style: context.textTheme.titleLarge),
           const Gap(10),
           Expanded(
-            child: ListView.separated(
-              physics: const AlwaysScrollableScrollPhysics(),
-              scrollDirection: Axis.horizontal,
-              itemBuilder: (ctx, index) {
-                final category = categories[index];
-
-                return InkWell(
-                  child: CircleContainer(
-                    color: category.color.withOpacity(0.3),
-                    child: Icon(
-                      category.icon,
-                      color: category == selectedCategory
-                          ? context.colorScheme.primary
-                          : category.color,
-                    ),
-                  ),
-                );
-              },
-              separatorBuilder: (ctx, index) => const Gap(8),
-              itemCount: categories.length,
-            ),
-          ),
+              child: ListView.separated(
+                  physics: const AlwaysScrollableScrollPhysics(),
+                  scrollDirection: Axis.horizontal,
+                  itemBuilder: (ctx, index) {
+                    final category = categories[index];
+                    return InkWell(
+                      onTap: () => _selectCategory(context, ref, category),
+                      borderRadius: BorderRadius.circular(30),
+                      child: CircleContainer(
+                        color: category.color.withOpacity(0.3),
+                        child: Icon(
+                          category.icon,
+                          color: category == selectedCategory
+                              ? category.color.withOpacity(1.0)
+                              : category.color.withOpacity(0.3),
+                        ),
+                      ),
+                    );
+                  },
+                  separatorBuilder: (ctx, index) => const Gap(8),
+                  itemCount: categories.length))
         ],
       ),
     );
   }
+}
+
+void _selectCategory(
+    BuildContext context, WidgetRef ref, TaskCategories category) {
+  ref.read(categoryProvider.notifier).state = category;
 }

@@ -31,12 +31,12 @@ class CommonTextField extends StatelessWidget {
         ),
         const Gap(10),
         TextField(
-          readOnly: readOnly,
           controller: controller,
           onTapOutside: (event) {
             FocusManager.instance.primaryFocus?.unfocus();
           },
           maxLines: maxLine,
+          readOnly: readOnly,
           decoration: InputDecoration(
             hintText: hintText,
             suffixIcon: suffixIcon,

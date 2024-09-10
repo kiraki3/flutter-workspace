@@ -30,10 +30,13 @@ class TaskDetails extends StatelessWidget {
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
               )),
-          Text(task.time),
+          Text(
+            task.time,
+            style: style.titleMedium,
+          ),
           const Gap(16),
           Visibility(
-            visible: task.isCompleted,
+            visible: !task.isCompleted,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -54,6 +57,8 @@ class TaskDetails extends StatelessWidget {
             task.note.isEmpty
                 ? 'There is no additional note for this task'
                 : task.note,
+            style: context.textTheme.titleMedium,
+            textAlign: TextAlign.center,
           ),
           const Gap(16),
           Visibility(
