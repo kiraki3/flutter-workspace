@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:webtoon_app/models/webtoon_detail_model.dart';
 import 'package:webtoon_app/models/webtoon_episode_model.dart';
 import 'package:webtoon_app/services/api_service.dart';
@@ -17,12 +18,47 @@ class DetailScreen extends StatefulWidget {
 class _DetailScreenState extends State<DetailScreen> {
   late Future<WebtoonDetailModel> webtoon;
   late Future<List<WebtoonEpisodeModel>> episodes;
+  late SharedPreferences prefs;
+  bool isLiked = false;
+
+  Future initPrefs() async {
+    prefs = await SharedPreferences.getInstance();
+    final likedToons = prefs.getStringList('likedToons');
+    if (likedToons != null) {
+      if (likedToons.contains(widget.id) == true) {
+        setState(() {
+          isLiked = true;
+        });
+      }
+    } else {
+      prefs.setStringList('likedToons', []);
+    }
+  }
 
   @override
   void initState() {
     super.initState();
     webtoon = ApiService.getToonById(widget.id);
     episodes = ApiService.getLatestEpisodesById(widget.id);
+    initPrefs();
+  }
+
+  //하트 버튼이 눌릴 때 호출
+  onHeartTap() async {
+    final likedToons = prefs.getStringList('likedToons'); // 저장된 데이터 가져오기
+    if (likedToons != null) {
+      if (isLiked) {
+        // 현재 아이템이 좋아요 상태인지 여부
+        likedToons.remove(widget.id); // 사용자가 하트를 다시 클릭하여 좋아요를 취소
+      } else {
+        likedToons.add(widget.id); // 리스트가 저장된 적이 없으니 추가
+      }
+      await prefs.setStringList('likedToons',
+          likedToons); // set 호출하여 업데이트된 likedToons 리스트를 SharedPreferences에 저장
+    }
+    setState(() {
+      isLiked = !isLiked;
+    });
   }
 
   @override
@@ -34,6 +70,13 @@ class _DetailScreenState extends State<DetailScreen> {
           shadowColor: Colors.black,
           backgroundColor: Colors.white,
           foregroundColor: Colors.green,
+          actions: [
+            IconButton(
+                onPressed: onHeartTap,
+                icon: Icon(
+                  isLiked ? Icons.favorite : Icons.favorite_outline,
+                ))
+          ],
           title: Text(
             widget.title,
             style: const TextStyle(

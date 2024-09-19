@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(App());
+  runApp(const App());
 }
 
 class App extends StatefulWidget {
+  const App({super.key});
+
   @override
   State<App> createState() => _AppState();
 }
@@ -26,14 +28,14 @@ class _AppState extends State<App> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(
+              const Text(
                 'Click Count',
                 style: TextStyle(fontSize: 30),
               ),
               for (var n in numbers) Text('$n'),
               IconButton(
                 onPressed: onClicked,
-                icon: Icon(
+                icon: const Icon(
                   Icons.add_box_rounded,
                   size: 50,
                 ),
