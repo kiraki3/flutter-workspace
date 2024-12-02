@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class FirstNamedPage extends StatelessWidget {
   const FirstNamedPage({super.key});
@@ -13,7 +14,11 @@ class FirstNamedPage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            TextButton(onPressed: () {}, child: const Text("Next Page")),
+            TextButton(
+                onPressed: () {
+                  Get.toNamed("/second");
+                },
+                child: const Text("Next Page")),
           ],
         ),
       ),

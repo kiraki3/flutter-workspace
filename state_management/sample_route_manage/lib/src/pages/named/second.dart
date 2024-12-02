@@ -22,7 +22,9 @@ class SecondNamedPage extends StatelessWidget {
               child: const Text("Back Page"),
             ),
             TextButton(
-              onPressed: () {},
+              onPressed: () {
+                Get.offAllNamed("/home");
+              },
               child: const Text("Home Page"),
             ),
           ],

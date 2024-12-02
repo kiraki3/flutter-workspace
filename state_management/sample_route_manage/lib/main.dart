@@ -20,11 +20,23 @@ class MyApp extends StatelessWidget {
       ),
       //home: const Home(),
       initialRoute: "/",
-      routes: {
-        "/": (context) => const Home(),
-        "/first": (context) => const FirstNamedPage(),
-        "/second": (context) => const SecondNamedPage(),
-      },
+      // routes: {
+      //   "/": (context) => const Home(),
+      //   "/first": (context) => const FirstNamedPage(),
+      //   "/second": (context) => const SecondNamedPage(),
+      // },
+      getPages: [
+        GetPage(
+            name: "/", page: () => const Home(), transition: Transition.zoom),
+        GetPage(
+            name: "/first",
+            page: () => const FirstNamedPage(),
+            transition: Transition.zoom),
+        GetPage(
+            name: "/second",
+            page: () => const SecondNamedPage(),
+            transition: Transition.zoom),
+      ],
     );
   }
 }

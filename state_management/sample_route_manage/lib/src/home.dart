@@ -26,6 +26,16 @@ class Home extends StatelessWidget {
               },
               child: const Text("General Route"),
             ),
+            TextButton(
+              onPressed: () {
+                // General route
+                // Navigator.of(context).pushNamed("/first");
+
+                // GetX
+                Get.toNamed("/first");
+              },
+              child: const Text("Named Route"),
+            )
           ],
         ),
       ),
