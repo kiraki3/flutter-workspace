@@ -4,6 +4,7 @@ import 'package:sample_route_manage/src/home.dart';
 import 'package:sample_route_manage/src/pages/named/first.dart';
 import 'package:sample_route_manage/src/pages/named/second.dart';
 import 'package:sample_route_manage/src/pages/next.dart';
+import 'package:sample_route_manage/src/pages/user.dart';
 
 void main() {
   runApp(const MyApp());
@@ -40,6 +41,10 @@ class MyApp extends StatelessWidget {
         GetPage(
             name: "/next",
             page: () => const NextPage(),
+            transition: Transition.zoom),
+        GetPage(
+            name: "/user/:uid",
+            page: () => const UserPage(),
             transition: Transition.zoom),
       ],
     );

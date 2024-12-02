@@ -42,6 +42,12 @@ class Home extends StatelessWidget {
               },
               child: const Text("Argument Passing"),
             ),
+            TextButton(
+              onPressed: () {
+                Get.toNamed("/user/347295794?name=갱갱&age=40");
+              },
+              child: const Text("Dynamic URL Route"),
+            ),
           ],
         ),
       ),
