@@ -39,13 +39,13 @@ class HomeScreen extends ConsumerWidget {
                       onTap: () => Helpers.selectDate(context, ref),
                       child: DisplayWhiteText(
                         text: DateFormat.yMMMd().format(selectedDate),
-                        fontSize: 20,
+                        fontSize: 18,
                         fontWeight: FontWeight.normal,
                       ),
                     ),
                     const DisplayWhiteText(
                       text: 'My ToDo List',
-                      fontSize: 40,
+                      fontSize: 32,
                     )
                   ],
                 ),
@@ -53,7 +53,7 @@ class HomeScreen extends ConsumerWidget {
             ],
           ),
           Positioned(
-            top: 100,
+            top: 75,
             left: 0,
             right: 0,
             child: SafeArea(
@@ -66,12 +66,12 @@ class HomeScreen extends ConsumerWidget {
                     DisplayListOfTasks(
                       tasks: incompletedTasks,
                     ),
-                    const Gap(20),
+                    const Gap(10),
                     Text(
                       'Completed',
                       style: context.textTheme.headlineMedium,
                     ),
-                    const Gap(20),
+                    const Gap(10),
                     DisplayListOfTasks(
                       tasks: completedTasks,
                       isCompletedTasks: true,
