@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:sample_route_manage/src/home.dart';
 import 'package:sample_route_manage/src/pages/named/first.dart';
 import 'package:sample_route_manage/src/pages/named/second.dart';
+import 'package:sample_route_manage/src/pages/next.dart';
 
 void main() {
   runApp(const MyApp());
@@ -35,6 +36,10 @@ class MyApp extends StatelessWidget {
         GetPage(
             name: "/second",
             page: () => const SecondNamedPage(),
+            transition: Transition.zoom),
+        GetPage(
+            name: "/next",
+            page: () => const NextPage(),
             transition: Transition.zoom),
       ],
     );

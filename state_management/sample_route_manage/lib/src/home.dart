@@ -35,10 +35,22 @@ class Home extends StatelessWidget {
                 Get.toNamed("/first");
               },
               child: const Text("Named Route"),
-            )
+            ),
+            TextButton(
+              onPressed: () {
+                Get.toNamed("/next", arguments: User(name: "츄츄", age: 123));
+              },
+              child: const Text("Argument Passing"),
+            ),
           ],
         ),
       ),
     );
   }
+}
+
+class User {
+  String name;
+  int age;
+  User({required this.name, required this.age});
 }
