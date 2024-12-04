@@ -16,10 +16,11 @@ class Home extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             TextButton(
-                onPressed: () {
-                  Get.to(const SimpleStateManagePage());
-                },
-                child: const Text("Click Me!"))
+              onPressed: () {
+                Get.to(const SimpleStateManagePage());
+              },
+              child: const Text("Click Me!"),
+            ),
           ],
         ),
       ),
