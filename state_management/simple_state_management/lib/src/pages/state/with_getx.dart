@@ -5,10 +5,10 @@ import 'package:simple_state_management/src/controller/count_controller_with_get
 class WithGetX extends StatelessWidget {
   const WithGetX({super.key});
 
-  Widget _button() {
+  Widget _button(String id) {
     return TextButton(
       onPressed: () {
-        Get.find<CountControllerWithGetx>().increase();
+        Get.find<CountControllerWithGetx>().increase(id);
       },
       child: const Text(
         "+",
@@ -32,6 +32,7 @@ class WithGetX extends StatelessWidget {
             ),
           ),
           GetBuilder<CountControllerWithGetx>(
+            id: "first",
             builder: (controller) {
               return Text(
                 "${controller.count}",
@@ -41,7 +42,19 @@ class WithGetX extends StatelessWidget {
               );
             },
           ),
-          _button(),
+          GetBuilder<CountControllerWithGetx>(
+            id: "second",
+            builder: (controller) {
+              return Text(
+                "${controller.count}",
+                style: const TextStyle(
+                  fontSize: 30,
+                ),
+              );
+            },
+          ),
+          _button("first"),
+          _button("second"),
         ],
       ),
     );
