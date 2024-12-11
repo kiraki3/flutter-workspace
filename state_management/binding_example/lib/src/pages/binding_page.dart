@@ -22,13 +22,14 @@ class BindingPage extends StatelessWidget {
                 );
               }),
               TextButton(
-                  onPressed: () {
-                    Get.find<CountControllerWithGetx>().increase();
-                  },
-                  child: const Text(
-                    "+",
-                    style: TextStyle(fontSize: 30),
-                  )),
+                onPressed: () {
+                  CountControllerWithGetx.to.increase();
+                },
+                child: const Text(
+                  "+",
+                  style: TextStyle(fontSize: 30),
+                ),
+              ),
             ],
           ),
         ));
