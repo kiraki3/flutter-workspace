@@ -2,7 +2,7 @@ import 'package:binding_example/src/controller/count_controller_with_getx.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class BindingPage extends StatelessWidget {
+class BindingPage extends GetView<CountControllerWithGetx> {
   const BindingPage({super.key});
 
   @override
@@ -15,15 +15,15 @@ class BindingPage extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              GetBuilder<CountControllerWithGetx>(builder: (_) {
-                return Text(
-                  _.count.toString(),
+              Obx(
+                () => Text(
+                  controller.count.toString(),
                   style: const TextStyle(fontSize: 40),
-                );
-              }),
+                ),
+              ),
               TextButton(
                 onPressed: () {
-                  CountControllerWithGetx.to.increase();
+                  controller.increase();
                 },
                 child: const Text(
                   "+",
