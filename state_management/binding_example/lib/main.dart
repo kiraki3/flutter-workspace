@@ -1,8 +1,6 @@
 import 'package:binding_example/src/binding/binding.dart';
-import 'package:binding_example/src/controller/count_controller_with_getx.dart';
 import 'package:binding_example/src/home.dart';
 import 'package:binding_example/src/pages/binding_page.dart';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
