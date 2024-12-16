@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:http/http.dart' as http;
@@ -12,6 +11,10 @@ class Loading extends StatefulWidget {
 }
 
 class _LoadingState extends State<Loading> {
+  // Position 객체에서 분리하여 별도의 변수로 저장
+  double? latitude2;
+  double? longitude2;
+
   @override
   void initState() {
     super.initState();
@@ -34,6 +37,10 @@ class _LoadingState extends State<Loading> {
           accuracy: LocationAccuracy.high,
         ),
       );
+      latitude2 = position.latitude;
+      longitude2 = position.longitude;
+      print(latitude2);
+      print(longitude2);
     } catch (e) {
       print("There was a problem with the internet connection.");
     }
@@ -55,6 +62,8 @@ class _LoadingState extends State<Loading> {
       // 객체를 부를 때
       print(myJson['wind']['speed']);
       print(myJson['id']);
+    } else {
+      print(response.statusCode);
     }
   }
 
